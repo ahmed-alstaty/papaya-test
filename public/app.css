@@ -1,0 +1,67 @@
+.page-wrapper{
+  margin: 20 auto !important;
+}
+
+.page-wrapper button{
+  margin-right: 5px;
+}
+
+#departmentsBlock label, #departmentsBlock h1{
+  padding-left: 15px !important;
+}
+
+.employeesBlock {
+  margin-top:10px;
+  margin-left: -15px;
+}
+.employeeItem{
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.employeesBlock input,.employeeItem input{
+  margin-right: 10px;
+  margin-left: 5px;
+}
+h1 {
+  font: 400 40px/1.5 Helvetica, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  font: 200 20px/1.5 Helvetica, Verdana, sans-serif;
+  border-bottom: 1px solid #ccc;
+}
+
+li:last-child {
+  border: none;
+}
+
+li a {
+  text-decoration: none;
+  color: #000;
+  display: block;
+  width: 200px;
+
+  -webkit-transition: font-size 0.3s ease, background-color 0.3s ease;
+  -moz-transition: font-size 0.3s ease, background-color 0.3s ease;
+  -o-transition: font-size 0.3s ease, background-color 0.3s ease;
+  -ms-transition: font-size 0.3s ease, background-color 0.3s ease;
+  transition: font-size 0.3s ease, background-color 0.3s ease;
+}
+
+li a:hover {
+  font-size: 30px;
+  background: #f6f6f6;
+}
+
+.hidden {
+  display: none;
+}
