@@ -2,7 +2,7 @@ class EmployeeManager {
     constructor(server, base_path) {
         this.employees = {};
         this.id = 1;
-        //console.log(new RegExp(base_path.source + 'employee/([\\d*])$'));
+        
         // Register employee handlers
         server.use('POST', new RegExp(base_path.source + 'employee/\\?name=(.*)&image_url=(.*)&email=(.*)$'), (req, res, params) => this.handleNew(req, res, params));
         server.use('GET', new RegExp(base_path.source + 'employees$'), (req, res, params) => this.handleList(req, res, params));
@@ -12,7 +12,6 @@ class EmployeeManager {
 
     // Add a new employee
     handleNew(req, res, params) {
-        console.log(params);
         var departmentId = params[0];
         if (!this.employees[departmentId]) {
             this.employees[departmentId] = [];

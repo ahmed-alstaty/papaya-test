@@ -32,7 +32,6 @@ class Server {
                 return;
             }            
             var parsedPath = handler.path.exec(req.url);
-            console.log(parsedPath, handler.path);
             handler.callback(req, res, parsedPath.slice(1, parsedPath.length));
         });
         return this.httpServer.listen(this.port);

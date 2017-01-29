@@ -23,7 +23,7 @@ function addEmployee(departmentId) {
     var newEmployeeName = $('#department-' + departmentId + ' .employee-name').val();
     var newEmployeeImage = $('#department-' + departmentId + ' .employee-image').val();
     var newEmployeeEmail = $('#department-' + departmentId + ' .employee-email').val();
-    //var departmentId = $("#employeesBlock").attr("data-department-id");
+    
     $.post('/department/'+departmentId+'/employee/?name=' + newEmployeeName + '&image_url=' + newEmployeeImage+'&email=' + newEmployeeEmail)
         .done(function (data) {
             addEmployeeItem(JSON.parse(data),departmentId);
@@ -56,8 +56,6 @@ function deleteEmployee(employeeId,departmentId) {
 function listEmployees(departmentId) {
     $.get('/department/' + departmentId + '/employees')
         .done(function (data) {
-            console.log("here");
-            //$('#departmentsBlock').hide().addClass('hidden');
             $('#department-' + departmentId + ' .employeesBlock').show().removeClass('hidden');
             $("#department-" + departmentId +"-employees").html('<h1>Employees list</h1>');
             var employees = JSON.parse(data);
@@ -78,17 +76,13 @@ function addEmployeeItem(employee, departmentId) {
         '<input type="text" class="employeeEmail" value="' + employee.email + '">'+
         '&nbsp<button class="deleteBtn">delete</button>' +
         '</li>';
-    console.log("here again");
-    //'heading' + department.id + ' #employeesBlock'
-    console.log(departmentId);
-    //console.log("#department-" + departmentId +"-employees");
+    
     $("#department-" + departmentId +"-employees").append(employeeItem);
-    //$('#employees').append(employeeItem);
+    
     // Handle onClick for the delete button
     $('#employee-' + employee.id + " .deleteBtn").click(deleteEmployee.bind(null, employee.id,departmentId));
     // Handle department name change
     $('#employee-' + employee.id + " input").keyup(function() {
-        //var departmentId = $("#employeesBlock").attr("data-department-id");
         var employeeName = $(this).parent().find('.employeeName').val();
         var employeeImage = $(this).parent().find('.employeeImage').val();
         var employeeEmail = $(this).parent().find('.employeeEmail').val();
