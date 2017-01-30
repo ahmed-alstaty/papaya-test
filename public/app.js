@@ -17,10 +17,11 @@ function addDepartment() {
     $.post('/department?name=' + newDepartmentName)
         .done(function (data) {
             var department = JSON.parse(data);
-            if(department.name){
+             if(department.name){
                 addDepartmentItem(department);
+                $("#new-department").removeClass("required");
             }else{
-                alert("Please specify a name, department name is required :)");
+                $("#new-department").addClass("required");
             }
         });
 }
