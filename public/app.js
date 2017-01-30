@@ -4,7 +4,9 @@ $(document).ready(function () {
         .done(function (data) {
             var departments = JSON.parse(data);
             departments.forEach(function (department) {
-                addDepartmentItem(department);
+                if(department.name){
+                    addDepartmentItem(department);
+                }
             });           
         });
 });
@@ -14,7 +16,12 @@ function addDepartment() {
     var newDepartmentName = $('#new-department').val();
     $.post('/department?name=' + newDepartmentName)
         .done(function (data) {
-            addDepartmentItem(JSON.parse(data));
+            var department = JSON.parse(data);
+            if(department.name){
+                addDepartmentItem(department);
+            }else{
+                alert("Please specify a name, department name is required :)");
+            }
         });
 }
 
@@ -26,7 +33,7 @@ function addEmployee(departmentId) {
     
     $.post('/department/'+departmentId+'/employee/?name=' + newEmployeeName + '&image_url=' + newEmployeeImage+'&email=' + newEmployeeEmail)
         .done(function (data) {
-            addEmployeeItem(JSON.parse(data),departmentId);
+            addEmployeeItem(JSON.parse(data),departmentId,false);
         });
 }
 
@@ -63,17 +70,19 @@ function listEmployees(departmentId) {
                 $("#department-" + departmentId +"-employees").html('<h1>Employees list</h1><span style="margin-left: 10px;">&nbsp;&nbsp; No Available Employees </span>');
             }
             employees.forEach(function (employee) {
-                addEmployeeItem(employee,departmentId);
+                addEmployeeItem(employee,departmentId,true);
             });           
         });
 }
 
 // Add a employee to the departments list
-function addEmployeeItem(employee, departmentId) {
-    var employeeItem = '<li class="employeeItem" id="employee-' + employee.id + '">Id: ' + employee.id + '&nbspName: ' + 
-        '<input type="text" class="employeeName" value="' + employee.name + '">'+
-        '<input type="text" class="employeeImage" value="' + employee.image_url + '">'+
-        '<input type="text" class="employeeEmail" value="' + employee.email + '">'+
+function addEmployeeItem(employee, departmentId,isView) {
+    var employeeImage = (isView === true) ? '<img src="'+employee.image_url+'" class="employeeImage">' :
+        '<input type="text" class="employeeImage" value="' + employee.image_url + '">';
+    var employeeItem = '<li class="employeeItem" id="employee-' + employee.id + '">Id: ' + employee.id + 
+        employeeImage +
+        '&nbspName: <input type="text" class="employeeName" value="' + employee.name + '">'+
+        '&nbspEmail:<input type="text" class="employeeEmail" value="' + employee.email + '">'+
         '&nbsp<button class="deleteBtn">delete</button>' +
         '</li>';
     
@@ -120,10 +129,10 @@ function addDepartmentItem(department) {
       '</h4>'+
     '</div>';
     var employeesSection = '<div class="employeesBlock" data-department-id="">'+
-        '<label>Add employee'+
-            '<input class="employee-name" type="text">'+
-            '<input class="employee-image" type="text">'+
-            '<input class="employee-email" type="text">'+
+        '<label>Add employee <br /><br />'+
+            'Name: <input class="employee-name" type="text">'+
+            '&nbsp;image url: <input class="employee-image" type="text">'+
+            '&nbsp;email: <input class="employee-email" type="text">'+
         '</label>'+
         '<button onClick="addEmployee('+ department.id +')">Add</button>'+
     '</div>';
